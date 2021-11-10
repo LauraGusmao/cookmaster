@@ -7,5 +7,6 @@ const router = express.Router();
 
 router.post('/', validateJWt, Recipes.createRecipe);
 router.get('/', Recipes.getAllRecipes);
+router.get('/:id', Recipes.findRecipeById);
 
 module.exports = router;
