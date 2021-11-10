@@ -1,6 +1,7 @@
 const express = require('express');
 
 const usersRouter = require('../routes/Users');
+const recipesRouter = require('../routes/Recipes');
 const handleError = require('../middlewares/handleError');
 
 const app = express();
@@ -13,7 +14,7 @@ app.get('/', (request, response) => {
 // Não remover esse end-point, ele é necessário para o avaliador
 
 app.use('/', usersRouter);
-
+app.use('/recipes', recipesRouter);
 app.use(handleError);
 
 module.exports = app;
