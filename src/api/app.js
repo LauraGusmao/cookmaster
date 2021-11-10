@@ -12,7 +12,7 @@ app.get('/', (request, response) => {
 });
 // Não remover esse end-point, ele é necessário para o avaliador
 
-app.use('/users', usersRouter);
+app.use('/', usersRouter);
 
 app.use(handleError);
 

@@ -16,6 +16,27 @@ const registerUser = async (name, email, psw) => {
   return { user: userInfo };
 };
 
+const login = async (email, password) => {
+  if (!email || !password) {
+    return {
+      code: 401,
+      message: 'All fields must be filled',
+    };
+  }
+
+  const user = await model.findByEmail(email);
+
+  if (!user || user.password !== password) {
+    return {
+      code: 401,
+      message: 'Incorrect username or password',
+    };
+  }
+
+  return { user };
+};
+
 module.exports = {
   registerUser,
+  login,
 };
