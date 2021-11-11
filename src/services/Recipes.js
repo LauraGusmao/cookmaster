@@ -25,8 +25,24 @@ const findRecipeById = async (id) => {
   return recipe;
 };
 
+const updateRecipe = async (id, body, userId, userRole) => {
+  const recipe = await model.findRecipeById(id);
+
+  if (userId !== recipe.userId && userRole !== 'admin') {
+    return {
+      code: 401,
+      message: 'User unauthorized to update recipe',
+    };
+  }
+
+  const updatedRecipe = await model.updateRecipe(id, body, userId);
+
+  return updatedRecipe;
+};
+
 module.exports = {
   createRecipe,
   getAllRecipes,
   findRecipeById,
+  updateRecipe,
 };

@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
   const token = req.headers.authorization;
 
   if (!token) {
-    return res.status(401).json({ message: 'missing token' });
+    return res.status(401).json({ message: 'missing auth token' });
   }
 
   // Ref: https://www.npmjs.com/package/jsonwebtoken
@@ -16,8 +16,9 @@ module.exports = async (req, res, next) => {
     }
 
     const id = '_id';
-
-    req.userId = decoded[id];
+    console.log(decoded);
+    req.userId = decoded.data[id];
+    req.userRole = decoded.data.role;
 
     next();
   });
