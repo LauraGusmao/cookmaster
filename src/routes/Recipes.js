@@ -9,5 +9,6 @@ router.post('/', validateJWt, Recipes.createRecipe);
 router.get('/', Recipes.getAllRecipes);
 router.get('/:id', Recipes.findRecipeById);
 router.put('/:id', validateJWt, Recipes.updateRecipe);
+router.delete('/:id', validateJWt, Recipes.deleteRecipe);
 
 module.exports = router;

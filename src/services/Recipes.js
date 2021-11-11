@@ -40,9 +40,25 @@ const updateRecipe = async (id, body, userId, userRole) => {
   return updatedRecipe;
 };
 
+const deleteRecipe = async (id) => {
+  const recipe = await model.findRecipeById(id);
+
+  if (!recipe) {
+    return {
+      code: 422,
+      message: 'Invalid Id',
+    };
+  }
+
+  const deleted = await model.deleteRecipe(id);
+
+  return deleted;
+};
+
 module.exports = {
   createRecipe,
   getAllRecipes,
   findRecipeById,
   updateRecipe,
+  deleteRecipe,
 };

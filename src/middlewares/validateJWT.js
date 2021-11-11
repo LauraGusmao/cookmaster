@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
     }
 
     const id = '_id';
-    console.log(decoded);
+    
     req.userId = decoded.data[id];
     req.userRole = decoded.data.role;
 
