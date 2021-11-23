@@ -10,7 +10,7 @@ const createRecipe = rescue(async (req, res, next) => {
   const { name, ingredients, preparation } = req.body;
   
   const newRecipe = await service.createRecipe(name, ingredients, preparation, req.userId);
-  console.log(req.userId);
+  
   return res.status(201).json(newRecipe);
 });
 

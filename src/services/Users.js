@@ -1,6 +1,6 @@
 const model = require('../models/Users');
 
-const registerUser = async (name, email, psw) => {
+const registerUser = async (name, email, psw, role) => {
   const existingUser = await model.findByEmail(email);
 
   if (existingUser) {
@@ -10,7 +10,7 @@ const registerUser = async (name, email, psw) => {
     };
   }
 
-  const newUser = await model.registerUser(name, email, psw);
+  const newUser = await model.registerUser(name, email, psw, role);
   const { password, ...userInfo } = newUser;
 
   return { user: userInfo };
