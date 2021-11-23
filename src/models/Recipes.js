@@ -28,16 +28,15 @@ const findRecipeById = async (id) => {
   return recipe;
 };
 
-const updateRecipe = async (id, body, userId) => {
-  const { name, ingredients, preparation } = body;
-  
+const updateRecipe = async (id, recipe) => {
   if (!ObjectId.isValid(id)) return null;
 
-  const recipe = await connection().then((db) => db.collection('recupes')
-    .updateOne({ _id: ObjectId(id) }, { $set: { name, ingredients, preparation } }))
-    .then(() => ({ _id: id, name, ingredients, preparation, userId }));
+  await connection().then((db) => db.collection('recipes')
+    .updateOne({ _id: ObjectId(id) }, { $set: { ...recipe } }));
 
-  return recipe;
+  const response = await findRecipeById(id);
+
+  return response;
 };
 
 const deleteRecipe = async (id) => {

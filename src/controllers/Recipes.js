@@ -38,6 +38,8 @@ const updateRecipe = rescue(async (req, res, next) => {
 
   const updatedRecipe = await service.updateRecipe(id, req.body, req.userId, req.userRole);
 
+  if (updatedRecipe.code) return next(updatedRecipe);
+
   return res.status(200).json(updatedRecipe);
 });
 
@@ -51,10 +53,24 @@ const deleteRecipe = rescue(async (req, res, next) => {
   return res.status(204).send();
 });
 
+const addRecipeImage = rescue(async (req, res, next) => {
+  const { id } = req.params;
+  const image = req.file;
+
+  const imagePath = `localhost:3000/src/uploads/${image.filename}`;
+
+  const updatedRecipe = await service.addRecipeImage(id, imagePath, req.userId, req.userRole);
+
+  if (updatedRecipe.code) return next(updatedRecipe);
+
+  return res.status(200).json(updatedRecipe);
+});
+
 module.exports = {
   createRecipe,
   getAllRecipes,
   findRecipeById,
   updateRecipe,
   deleteRecipe,
+  addRecipeImage,
 };

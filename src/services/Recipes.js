@@ -35,7 +35,7 @@ const updateRecipe = async (id, body, userId, userRole) => {
     };
   }
 
-  const updatedRecipe = await model.updateRecipe(id, body, userId);
+  const updatedRecipe = await model.updateRecipe(id, body);
 
   return updatedRecipe;
 };
@@ -55,10 +55,26 @@ const deleteRecipe = async (id) => {
   return deleted;
 };
 
+const addRecipeImage = async (id, image, userId, userRole) => {
+  const recipe = await model.findRecipeById(id);
+
+  if (userId !== recipe.userId && userRole !== 'admin') {
+    return {
+      code: 401,
+      message: 'User unauthorized to update recipe image',
+    };
+  }
+
+  const updatedRecipe = await model.updateRecipe(id, { image });
+
+  return updatedRecipe;
+};
+
 module.exports = {
   createRecipe,
   getAllRecipes,
   findRecipeById,
   updateRecipe,
   deleteRecipe,
+  addRecipeImage,
 };
