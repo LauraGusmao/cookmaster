@@ -15,6 +15,7 @@ app.get('/', (request, response) => {
 
 app.use('/', usersRouter);
 app.use('/recipes', recipesRouter);
+app.use('/images', express.static(`${__dirname}/../uploads`));
 app.use(handleError);
 
 module.exports = app;
