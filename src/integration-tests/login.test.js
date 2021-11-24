@@ -57,10 +57,10 @@ describe('User login', () => {
 
       sinon.stub(MongoClient, 'connect').resolves(connectionMock);
 
-      connectionMock.db('Cookmaster').collection('users').insertOne({
+      await connectionMock.db('Cookmaster').collection('users').insertOne({
         name: 'Laura Gusmao',
         email: 'myemail@cookmaster.com',
-        password: 'cook123',
+        password: 'abc123',
         role: 'user',
       });
 
@@ -99,10 +99,10 @@ describe('User login', () => {
 
       sinon.stub(MongoClient, 'connect').resolves(connectionMock);
 
-      connectionMock.db('Cookmaster').collection('users').insertOne({
+      await connectionMock.db('Cookmaster').collection('users').insertOne({
         name: 'Laura Gusmao',
         email: 'myemail@cookmaster.com',
-        password: 'cook123',
+        password: 'abc123',
         role: 'user',
       });
 
@@ -110,7 +110,7 @@ describe('User login', () => {
         .post('/login')
         .send({
           email: 'myemail@cookmaster.com',
-          password: 'cook123',
+          password: 'abc123',
         });
     });
 
